@@ -1,5 +1,9 @@
-Invoke-WebRequest -Uri https://s3.amazonaws.com/amazoncloudwatch-agent/windows/amd64/latest/amazon-cloudwatch-agent.msi -OutFile $env:USERPROFILE\Desktop\amazon-cloudwatch-agent.msi
-Test-Path -Path $env:USERPROFILE\Desktop\amazon-cloudwatch-agent.msi
-msiexec /i $env:USERPROFILE\Desktop\amazon-cloudwatch-agent.msi
-& $env:ProgramFiles\Amazon\AmazonCloudWatchAgent\amazon-cloudwatch-agent-config-wizard.exe
-& $env:ProgramFiles\Amazon\AmazonCloudWatchAgent\amazon-cloudwatch-agent-ctl.ps1 -a fetch-config -m ec2 -c file:$env:ProgramFiles\Amazon\AmazonCloudWatchAgent\config.json -s
+$parameters = @{
+    url = 'https://s3.amazonaws.com/amazoncloudwatch-agent/windows/amd64/latest/amazon-cloudwatch-agent.zip'
+    outFile = "env:TMP\mazon-cloudwatch-agent.zip"
+}
+Invoke-WebRequest @parameters
+
+Expand-Archive -Path "env:TMP\mazon-cloudwatch-agent.zip" -DestinationPath "env:TMP\mazon-cloudwatch-agent"
+Set-Location -Path "env:TMP\mazon-cloudwatch-agent"
+.\install.ps1
