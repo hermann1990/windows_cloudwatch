@@ -1,5 +1,5 @@
 variable "userdata" {
-  default = "user_data.sh"
+  default = "user_data.ps1"
 }
 variable "cw" {
   default = "cw-agent.json"
