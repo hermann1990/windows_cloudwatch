@@ -9,7 +9,7 @@ locals {
 }
 
 resource "aws_instance" "this" {
-  ami                  = ""
+  ami                  = "ami-0c19f80dba70861db"
   instance_type        = "t3.micro"
   iam_instance_profile = aws_iam_instance_profile.this.name
   user_data            = local.userdata
